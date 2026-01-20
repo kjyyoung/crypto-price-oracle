@@ -13,9 +13,12 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# 3. Install OpenSeal
-# We expect the 'openseal' binary to be in the root of the build context
-COPY openseal /usr/local/bin/openseal
+# 3. Install OpenSeal (From GitHub Release v0.1.0)
+# We download the pre-built binary directly, ensuring a clean "Public User" experience.
+# Try openseal-linux first (standard), fallback to openseal just in case.
+RUN curl -L -f https://github.com/kjyyoung/openseal/releases/download/v0.1.0/openseal-linux -o /usr/local/bin/openseal || \
+    curl -L -f https://github.com/kjyyoung/openseal/releases/download/v0.1.0/openseal -o /usr/local/bin/openseal
+
 RUN chmod +x /usr/local/bin/openseal
 
 # 4. Create Sealed Bundle (Inside Container)
