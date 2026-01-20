@@ -48,8 +48,8 @@ To seal this service, follow these steps to avoid conflict with the Project's `d
 npm run build
 
 # 2. Seal with a custom output directory (to preserve the dist folder)
-openseal build --exec "node dist/index.js" --output sealed_dist
+openseal build --exec "node dist/index.js" --output dist_opensealed
 
 # 3. Run the protected service
-openseal run --app sealed_dist --port 4000
+openseal run --app dist_opensealed --port 3000
 ```
