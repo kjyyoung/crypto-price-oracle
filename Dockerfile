@@ -15,9 +15,12 @@ RUN npm run build
 
 # 3. Install OpenSeal
 # We expect the 'openseal' binary to be in the root of the build context
-# (The build_docker.sh script handles this)
 COPY openseal /usr/local/bin/openseal
 RUN chmod +x /usr/local/bin/openseal
+
+# 4. Create Sealed Bundle (Inside Container)
+# This generates the 'dist_opensealed' directory that the runner expects
+RUN openseal build --exec "node dist/index.js" --output dist_opensealed
 
 # 4. Expose Port
 EXPOSE 1999
